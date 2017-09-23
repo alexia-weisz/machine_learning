@@ -1,0 +1,25 @@
+Week 1
+------
+
+Machine learning is the science of getting computers to learn without being explicitly programmed. (Arthur Samuel, 1959)
+
+**INTRODUCTION**
+Grew out of work in AI -- new capabilities for computers
+
+Good for database mining -- industry, medicine, biology, engineering, etc; many examples of where machine learning allows us to take large amounts of data and use it
+
+good for applications that we can't program by hand -- e.g., how do you write a program to make a helicopter fly by itself?
+
+good for self-customizing programs -- amazon, netflix reccomendations
+
+good for understanding how humans learn --  brain, real AI
+
+A computer is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T, as measured by P, improves with experience E. (Tom Mitchell, 1998)
+
+Supervised learning -- we teach the computer about something
+Unsupervised learning -- the computer learns for itself
+
+Supervised learning -- we know the right answer and need to figure out how to teach the computer how to get that answer with the available data.
+-- Regression -- continuous output
+-- Classificiation -- discrete output
+
