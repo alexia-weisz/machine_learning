@@ -24,11 +24,6 @@ Supervised learning -- we know the right answer and need to figure out how to te
 -- Classificiation -- discrete output
 
 
-
-
-
-
-
 Supervised Learning -- Model Representation
 Training Set -- Learning Algorithm -- hypothesis (h) -- takes in x, outputs estimated value of y; i.e., h maps from x's to y's
 
@@ -39,5 +34,13 @@ How do we represent h?
  
 Gradient decent: start with guess, change inital guess values by a little bit each time in order to find the values that minimize the function
 
-:= == assignment operator
-= == truth assertion
+:= == assignment operator (= in python)
+= == truth assertion (== in python)
+
+Linear regression cost function is always a convex function, so always get convergence to global minimum because there are no local minima
+
+
+
+
+Week 2
+------
