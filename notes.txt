@@ -44,3 +44,27 @@ Linear regression cost function is always a convex function, so always get conve
 
 Week 2
 ------
+Installing Octave
+To uninstall, move following folders to trash
+  -- /usr/local/octave/3.8.0
+  -- /Applications/Octave-cii.app
+  -- /Applications/Octive-gui.app
+
+
+Linear Regression with Multiple Variables
+-- convention: x_0 = 1
+
+Gradient Descent:
+-- Feature Scaling: want to get every feature into approximately a -1 < x_i < 1 range. Keep the scales of the features similar to help gradient descent converge faster. Also want to try to rescale such that the average value is 0, so could be x_i = (xi_i - mu_i)/s_i), where mu_i is average value of trianing set, and s_i is the range of the data set (i.e., max-min, or std)
+-- make sure it's working correctly by plotting the cost function J(theta) as a function of number of iterations. The cost function should decrease after each iteration if gradient descent is working.
+-- Hard to know in advance how many iterations you need. Plotting can help.
+-- Can also declare convergence in advance if J(theta) decreases by less than a set amount in one iteration. But it can be difficult to know waht that amount should be.
+-- If gradient descent is not working (i.e., cost function is increasing with iterations), could be that learning rate alpha is too large, so try a smaller value. For sufficiently small alpha, J(theta) should decrease on every iteration.
+
+Normal Equation: analytically solve for your vector theta
+Can be used if the number of features is not too large (i.e., n<~10000)
+Alternative that can be much faster than gradient descent
+
+why might X-transpose * x be non-inverible?
+- redundent features (i.e., x1 and x2 are related, linearly dependent)
+- too many features (i.e., the number of examples in your training set is less than the number of features)
