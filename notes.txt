@@ -68,3 +68,45 @@ Alternative that can be much faster than gradient descent
 why might X-transpose * x be non-inverible?
 - redundent features (i.e., x1 and x2 are related, linearly dependent)
 - too many features (i.e., the number of examples in your training set is less than the number of features)
+
+
+
+
+Week 3
+-------
+Not a good idea to use linear regression for a classification problem. Can work sometimes, but outliers can really affect the results.
+Logistic regression — output always between 0 and 1 — is a classification algorithm
+
+Logistic Regression — Hypothesis Representation
+— want model to output values between 0 and 1
+— sigmoid function or logistic function — asymptotes at 0 and one, classes y-axis at 0.5
+
+Logistic Regression — Decision Boundary
+
+Logistic Regression — Cost Function — Cost the algorithm pays
+— want a convex cost function so that gradient descent converges to global minimum
+— can’t use previously used square cost function
+
+Cost(h(x),y) = -y log(h(x)) - (1 - y) log(1 - h(x))
+y can only be 0 or 1
+Finally, to find the parameters theta, we need to minimize the cost function J(theta)
+Gradient descent rule for logistic regression is same as that for linear regression, but the definition for the hypothesis h(x) has changed.
+
+Multiclass classification — one-vs-all (i.e., classification with more than two classes)
+ — divide into n binary classifiers for n classes
+ — pick single classifier that maximizes the probability
+
+Overfitting problem: too many features, you can fit the training set well, but cannot be generalized to new examples. Fit training set too well.
+—underfit: ‘high bias’
+-overfit: ‘high variance’
+
+How do you address overfitting?
+— could plot the hypothesis to see that the problem is overfit — doesn’t always work, can be hard when there are many features
+Options:
+1. Reduce number of features — manually, or with a model selection algorithm
+2. Regularization — keep all features, but reduce magnitude of parameters theta
+
+Regularization:
+— small parameters leads to a simpler hypothesis, which is less prone to overfitting
+— be careful about choice of regularization parameter lambda: too large can underfit the data
+
