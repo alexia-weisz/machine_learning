@@ -12,12 +12,12 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
-
-
-
-
-
-
+admitted = y==1;
+not_admitted = y==0;
+plot (X(admitted,1), X(admitted,2), 'k+', 'markersize', 7, 'linewidth', 2);
+plot (X(not_admitted,1), X(not_admitted,2), 'ko', 'markerfacecolor', 'y', 'markersize', 7);
+xlabel ('Exam 1 Score');
+ylabel ('Exam 2 Score')
 
 
 % =========================================================================
