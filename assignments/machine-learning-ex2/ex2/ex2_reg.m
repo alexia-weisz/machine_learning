@@ -55,6 +55,7 @@ hold off;
 
 % Note that mapFeature also adds a column of ones for us, so the intercept
 % term is handled
+
 X = mapFeature(X(:,1), X(:,2));
 
 % Initialize fitting parameters
@@ -74,8 +75,8 @@ fprintf(' %f \n', grad(1:5));
 fprintf('Expected gradients (approx) - first five values only:\n');
 fprintf(' 0.0085\n 0.0188\n 0.0001\n 0.0503\n 0.0115\n');
 
-fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+%fprintf('\nProgram paused. Press enter to continue.\n');
+%pause;
 
 % Compute and display cost and gradient
 % with all-ones theta and lambda = 10
@@ -89,8 +90,8 @@ fprintf(' %f \n', grad(1:5));
 fprintf('Expected gradients (approx) - first five values only:\n');
 fprintf(' 0.3460\n 0.1614\n 0.1948\n 0.2269\n 0.0922\n');
 
-fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+%fprintf('\nProgram paused. Press enter to continue.\n');
+%pause;
 
 %% ============= Part 2: Regularization and Accuracies =============
 %  Optional Exercise:
@@ -118,6 +119,7 @@ options = optimset('GradObj', 'on', 'MaxIter', 400);
 
 % Plot Boundary
 plotDecisionBoundary(theta, X, y);
+
 hold on;
 title(sprintf('lambda = %g', lambda))
 
@@ -130,7 +132,7 @@ hold off;
 
 % Compute accuracy on our training set
 p = predict(theta, X);
-
+y
 fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);
 fprintf('Expected accuracy (with lambda = 1): 83.1 (approx)\n');
 
