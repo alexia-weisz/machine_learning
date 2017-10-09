@@ -8,13 +8,11 @@ def plot_data(x, y, labels=None):
 	"""
 	Plot data x and y, where x are the data to be plotted and y are the labels
 	"""
-	plt.figure()
 	admitted = (y == 1)
 	not_admitted = (y == 0)
 
 	plt.plot(x[admitted, 0], x[admitted, 1], 'kP', label=labels[0])
 	plt.plot(x[not_admitted, 0], x[not_admitted, 1], 'yo', mec='k', mew=0.5, label=labels[1])
-
 	
 def sigmoid(z):
 	"""
@@ -74,11 +72,6 @@ def compute_grad(theta, X, y):
 	return grad[:,0]
 
 def plot_decision_boundary(theta, X, y, labels=None):
-	if len(y.shape) > 1:
-		plot_data(X[:, 1:3], y[:,0], labels=labels)
-	else:
-		plot_data(X[:, 1:3], y, labels=labels)
-
 	if X.shape[1] <= 3:
 	    # Only need 2 points to define a line, so choose two endpoints
 	    plot_x = np.array((np.min(X[:,1]) - 2, np.max(X[:,1]) + 2))
@@ -87,12 +80,13 @@ def plot_decision_boundary(theta, X, y, labels=None):
 	    plot_y = (-1. / theta[2]) * (theta[1] * plot_x + theta[0])
 
 	    # Plot, and adjust axes for better viewing
-	    plt.plot(plot_x, plot_y, lw=2, label='Decision Boundary')
+	    plt.plot(plot_x, plot_y, lw=2, label=labels[-1])
 	    
 	    # Legend, specific for the exercise
 	    plt.xlim([28, 100])
-	    plt.ylim([28, 100])
+	    plt.ylim([28, 120])
 	    plt.legend(fontsize=12, loc=1, frameon=True, framealpha=0.7, edgecolor='k')
+	    plt.show()
 	else:
 	    # Here is the grid range
 	    u = np.linspace(-1, 1.5, 50)
@@ -104,17 +98,14 @@ def plot_decision_boundary(theta, X, y, labels=None):
 	    for i in range(0, len(u)):
 	        for j in range(0, len(v)):
 	        	new = np.dot(map_feature(u[i], v[j]), theta)
-	        	#print(new)
-	        	#set_trace()
-	        	#new = map_feature(u[i], v[j]) * theta
-	        	#set_trace()
 	        	z[i,j] = new
 
 	    z = z.T # important to transpose z before calling contour
 
-	    # Plot z = 0
-	    # Notice you need to specify the range [0, 0]
-	    plt.contour(u, v, z, levels=[0], colors='red', linewidths=2)
+	    # Plot z = 0 -- Notice you need to specify the range [0, 0] (levels=[0] in python)
+	    contour = plt.contour(u, v, z, levels=[0], colors='red', linewidths=2)
+	    contour.collections[0].set_label(labels[-1])
+	    plt.legend(fontsize=12, loc=1, frameon=True, framealpha=0.7, edgecolor='k')
 	    plt.show()
 
 def map_feature(x1, x2):
@@ -134,7 +125,6 @@ def map_feature(x1, x2):
 			out = np.append(out, col, axis=1)
 	return out
 
-
 def predict(theta, X):
 	m = X.shape[0] # Number of training examples
 	h = sigmoid(np.dot(X, theta))
@@ -146,7 +136,8 @@ def predict(theta, X):
 
 
 def part_one_linear(X, y):
-	print('Plotting data with + indicating (y = 1) examples and o indicating (y = 0) examples.\n');
+	print('Plotting data with + indicating (y = 1) examples and o indicating (y = 0) examples.\n')
+	plt.figure(1)
 	plot_data(X, y, labels=['Admitted', 'Not Admitted'])
 	
 	plt.legend(fontsize=12, loc=1, frameon=True, framealpha=0.7, edgecolor='k')
@@ -154,7 +145,7 @@ def part_one_linear(X, y):
 	plt.ylabel('Exam 2 Score', size=18)
 	plt.show()
 
-	raw_input('Program paused. Press key to continue.\n')
+	#raw_input('Program paused. Press key to continue.\n')
 
 def part_two_linear(X, y, initial_theta, print_output=True):
 	m, n = X.shape
@@ -163,7 +154,6 @@ def part_two_linear(X, y, initial_theta, print_output=True):
 	X = np.append(np.ones([m,1]), X, axis=1)
 
 	# Initialize fitting parameters
-	#initial_theta = np.zeros([n+1, 1])
 	initial_theta = initial_theta.reshape(initial_theta.shape[0], 1)
 
 	# Compute and display initial cost and gradient
@@ -193,8 +183,7 @@ def part_two_linear(X, y, initial_theta, print_output=True):
 		print(' {}'.format(grad))
 		print('Expected gradients (approx):\n 0.043\n 2.566\n 2.647\n')
 
-	#print('\nProgram paused. Press enter to continue.\n')
-	raw_input('Program paused. Press key to continue.\n')
+	#raw_input('Program paused. Press key to continue.\n')
 
 	return X, y
 
@@ -220,7 +209,7 @@ def part_three_linear(X, y, theta, print_output=True):
 		print('Expected theta (approx):\n -25.161\n 0.206\n 0.201\n')
 
 	# Plot Boundary
-	plot_decision_boundary(theta, X, y, labels=['Admitted', 'Not Admitted'])
+	plot_decision_boundary(theta, X, y, labels=['Admitted', 'Not Admitted', 'Decision Boundary'])
 
 	# Put some labels 
 	plt.xlabel('Exam 1 Score', size=18)
@@ -228,7 +217,7 @@ def part_three_linear(X, y, theta, print_output=True):
 	plt.gca().tick_params(labelsize=14)
 	plt.show()
 
-	raw_input('Program paused. Press key to continue.\n')
+	#raw_input('Program paused. Press key to continue.\n')
 	return theta
 
 def part_four_linear(X, y, theta, print_output=True):
@@ -245,11 +234,10 @@ def part_four_linear(X, y, theta, print_output=True):
 		print('\n')
 
 def linear():
-	plt.close('all')
 	## Load Data
 	#  The first two columns contains the exam scores and the third column
 	#  contains the label.
-
+	print('Linear!')
 	data = np.loadtxt('ex2data1.txt', delimiter=',')
 	X = data[:, :2]
 	y = data[:, 2,]
@@ -260,7 +248,7 @@ def linear():
 	## ==================== Part 1: Plotting ====================
 	#  We start the exercise by first plotting the data to understand the 
 	#  the problem we are working with.
-	#part_one_linear(X, y)
+	part_one_linear(X, y)
 
 	## ============ Part 2: Compute Cost and Gradient ============
 	#  In this part of the exercise, you will implement the cost and gradient
@@ -268,14 +256,14 @@ def linear():
 	#  costFunction.m
 
 	#  Setup the data matrix appropriately, and add ones for the intercept term
-	X, y = part_two_linear(X, y, initial_theta, print_output=False)
+	X, y = part_two_linear(X, y, initial_theta, print_output=True)
 	
 
 	## ============= Part 3: Optimizing using fminunc  =============
 	#  In this exercise, you will use a built-in function (fminunc) to find the
 	#  optimal parameters theta.
 
-	theta = part_three_linear(X, y, initial_theta, print_output=False)
+	theta = part_three_linear(X, y, initial_theta, print_output=True)
 
 
 	## ============== Part 4: Predict and Accuracies ==============
@@ -403,31 +391,25 @@ def part_two_regular(X, y, print_output=True):
 	# Set regularization parameter lambda to 1 (you should vary this)
 	llambda = 1
 
-	# Set Options
-	#options = optimset('GradObj', 'on', 'MaxIter', 400);
-
 	# Optimize
-	#[theta, J, exit_flag] = fminunc(@(t)(costFunctionReg(t, X, y, llambda)), initial_theta, options);
 	kwargs = {'maxiter': 400, 'args': (X, y, llambda), 'full_output': True}
 	theta, cost, nf, gf, hf, w = optimize.fmin_ncg(f=compute_cost_reg, x0=initial_theta, fprime=compute_grad_reg, **kwargs)
 
 	# Plot Boundary
 	plot_decision_boundary(theta, X, y, labels=['y=1', 'y=0', 'Decision Boundary'])
 
-	plt.title('lambda = {}'.format(llambda))
-
 	# Labels and Legend
+	plt.title('lambda = {}'.format(llambda))
 	plt.xlabel('Microchip Test 1', size=18)
 	plt.ylabel('Microchip Test 2', size=18)
-	plt.legend(fontsize=12, loc=1, frameon=True, framealpha=0.7, edgecolor='k')
-
+	plt.gca().tick_params(labelsize=14)
+	plt.show()
 
 	# Compute accuracy on our training set
 	p = predict(theta, X)
 	if len(y.shape) == 1:
 		y = y.reshape(y.shape[0], 1)
 	if print_output:
-		#print('Train Accuracy: {:f}'.format(np.mean((p == y)) * 100))
 		print('Train Accuracy: {:f}'.format(np.mean((p == y)) * 100))
 		print('Expected accuracy (with lambda = 1): 83.1 (approx)\n')
 	
@@ -452,9 +434,8 @@ def regular():
 	"""
 
 	# Initialization
-	plt.close('all')
 	
-
+	print('Regular!')
 	## Load Data
 	#  The first two columns contains the X values and the third column
 	#  contains the label (y).
@@ -462,12 +443,12 @@ def regular():
 	X = data[:, :2]
 	y = data[:, 2,]
 	
-	#plot_data(X, y, labels=['y=1', 'y=0'])
+	plt.figure(2)
+	plot_data(X, y, labels=['y=1', 'y=0'])
 
-	#plt.legend(fontsize=12, loc=1, frameon=True, framealpha=0.7, edgecolor='k')
-	#plt.xlabel('Microchip Test 1', size=18)
-	#plt.ylabel('Microchip Test 2', size=18)
-	#plt.show()
+	plt.xlabel('Microchip Test 1', size=18)
+	plt.ylabel('Microchip Test 2', size=18)
+	plt.show()
 
 	#raw_input('Program paused. Press key to continue.\n')
 
@@ -504,5 +485,5 @@ def regular():
 
 
 if __name__ == '__main__':
-	#linear()
+	linear()
 	regular()
