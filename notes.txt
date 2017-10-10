@@ -110,3 +110,39 @@ Regularization:
 — small parameters leads to a simpler hypothesis, which is less prone to overfitting
 — be careful about choice of regularization parameter lambda: too large can underfit the data
 
+
+
+
+WEEK 4
+-------
+Including all quadratic terms in linear regression would lead to a huge number of terms:
+Example:
+  5 features — gives you 4 + 3 + 2 + 1 = 10 terms
+So 100 or more features would be many terms and it gets even worse if we want to include other nonlinear terms
+
+Neural Networks
+— origin: algorithms that try to mimic the brain; widely used in the 80s and 90s, then diminished, but now getting to be more popular again
+— computationally expensive
+
+X0 node — bias unit — always equals one
+In neural networks: theta are the weights (parameters)
+First layers = input layer
+Final layer = output layer
+middle layer(s) = hidden layer(s)
+a_i^(j) —> activation of unit i in layer j
+theta^(j) — matrix of weights controlling function mapping from layer j to layer j+1
+IF network has s_j units inlayer j and s_(j+1) units in layer j+1, then theta^(j) will be of dimension s_(j+1) x s_(j)+1
+
+Computing different layers:
+In a 4-layer architecture, where layer one is the input layer denoted by a^(1) = x, layer four is the output layer dotted by a^(4), and layers two and three are hidden layers denoted by a^(2) and a^(3), you would calculate a^(2) by:
+     z^(2)=Theta^(1)a^(1); a^(2)=g( z^(2) )
+Or:
+     z^(j) = Theta^(j-1)a^(j-1);; a^(j)=g( z^(j) )
+
+Final result is then:
+   h_{Theta}(x) = a^(j+1) = g( z^(j+1) )
+
+
+
+
+
